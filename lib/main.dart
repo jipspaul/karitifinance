@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'homepage/home_page.dart';
+import 'homepage/home_screen.dart';
 import 'kariti_color.dart';
 
 void main() {
@@ -21,7 +22,6 @@ class BooksApp extends StatefulWidget {
 }
 
 class _BooksAppState extends State<BooksApp> {
-  Book _selectedBook;
   bool show404 = false;
   List<Book> books = [
     Book('Left Hand of Darkness', 'Ursula K. Le Guin'),
@@ -34,9 +34,7 @@ class _BooksAppState extends State<BooksApp> {
   }
 
   void _handleBookTapped(Book book) {
-    setState(() {
-      _selectedBook = book;
-    });
+    setState(() {});
   }
 
   @override
@@ -69,11 +67,8 @@ class _BooksAppState extends State<BooksApp> {
       ),
       home: Navigator(
         pages: [
-          MaterialPage(key: ValueKey('homePage'), child: Scaffold(body: HomePage())),
-          if (show404)
-            MaterialPage(key: ValueKey('UnknownPage'), child: unknownScreen())
-          else if (_selectedBook != null)
-            MaterialPage(key: ValueKey(_selectedBook), child: unknownScreen())
+          MaterialPage(
+              key: ValueKey('homePage'), child: Scaffold(body: HomePage())),
         ],
         onPopPage: (route, result) => route.didPop(result),
       ),
@@ -91,8 +86,8 @@ class BooksListScreen extends StatelessWidget {
   final ValueChanged<Book> onTapped;
 
   BooksListScreen({
-    @required this.books,
-    @required this.onTapped,
+    required this.books,
+    required this.onTapped,
   });
 
   @override
