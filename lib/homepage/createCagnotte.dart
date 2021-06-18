@@ -8,14 +8,14 @@ import '../kariti_color.dart';
 
 enum state { selectBudget, selectTime, finish }
 
-class Join extends StatefulWidget {
+class CreateCagnotte extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _JoinState();
+  State<StatefulWidget> createState() => _CreateCagnotteState();
 }
 
 double percent = 0.1;
 
-class _JoinState extends State<Join> {
+class _CreateCagnotteState extends State<CreateCagnotte> {
   void initState() {
     super.initState();
   }
@@ -118,6 +118,9 @@ class _JoinState extends State<Join> {
                       onPressed: () async {
                         percent = 0;
                         _state = state.finish;
+                        setState(() {
+
+                        });
                       },
                       child: Text(
                         "Suivant",

@@ -2,13 +2,16 @@ import 'package:fl_chart/fl_chart.dart';
 
 /// Flutter code sample for BottomNavigationBar
 import 'package:flutter/material.dart';
+import 'package:kariti_finance/homepage/ConfirmationJoin.dart';
+import 'package:kariti_finance/homepage/cagnotteView.dart';
 import 'package:kariti_finance/homepage/home.dart';
 import 'package:kariti_finance/homepage/karitiJoin.dart';
 import 'package:kariti_finance/homepage/profile.dart';
 import 'package:kariti_finance/kariti_color.dart';
 
 import 'calls.dart';
-import 'join.dart';
+import 'createCagnotte.dart';
+import 'joinCagnotte.dart';
 
 bool isCreate = false;
 
@@ -36,7 +39,25 @@ class MyStatefulWidget extends StatefulWidget {
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
+  getCagnote(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(children: [
+        item(context, "Cagnotte 1", 0.75, "10.000€"),
+        item(context, "Cagnotte 2", 0.4, "5.000€"),
+        item(context, "Cagnotte 3", 0.90, "8.000€"),
+        item(context, "Cagnotte 4", 0.1, "7.000€"),
+        item(context, "Cagnotte 5", 0, "15.000€"),
+        IconButton(
+            icon: Icon(Icons.autorenew),
+            onPressed: () {
+              isCreate = false;
+              setState(() {});
+            })
+      ]),
+    );
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -49,125 +70,147 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     List<Widget> _widgetOptions = <Widget>[
       isCreate
           ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: getCagnote(context),
-            )
+        padding: const EdgeInsets.all(8.0),
+        child: getCagnote(context),
+      )
           : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: TextButton(
-                        onPressed: () async {
-                          isCreate = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => KaritiJoin()));
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: TextButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => KaritiJoin()));
 
-                          setState(() {});
-                        },
-                        child: Text(
-                          "Etre intégré au programme Kariti Finance",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 30, color: KaritiColor().darkGrean),
-                        ),
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(
-                                        color: KaritiColor().lightGrean)))),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: TextButton(
-                        onPressed: () async {
-                          isCreate = await Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Join()));
+                    isCreate = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ConfirmationJoin(
+                                    "Félicitaition, nos equipes vous contacterons tres rapidement ! ")));
 
-                          setState(() {});
-                        },
-                        child: Text(
-                          "Rejoindre une cagnotte",
-                          style: TextStyle(
-                              fontSize: 30, color: KaritiColor().darkGrean),
-                        ),
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(
-                                        color: KaritiColor().lightGrean)))),
-                      ),
-                    ),
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Etre intégré au programme Kariti Finance",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 30, color: KaritiColor().darkGrean),
                   ),
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<
+                          RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: KaritiColor().lightGrean)))),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: TextButton(
-                        onPressed: () async {
-                          isCreate = await Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Join()));
-
-                          setState(() {});
-                        },
-                        child: Text(
-                          "Creer une cagnotte",
-                          style: TextStyle(
-                              fontSize: 30, color: KaritiColor().darkGrean),
-                        ),
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(
-                                        color: KaritiColor().lightGrean)))),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: TextButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => joinCagnotte()));
+                    isCreate = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ConfirmationJoin(
+                                    "Le createur de la cagnote viens d etre informer de votre demande. vous serez avertis lors de sa confirmation")));
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Rejoindre une cagnotte",
+                    style: TextStyle(
+                        fontSize: 30, color: KaritiColor().darkGrean),
+                  ),
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<
+                          RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: KaritiColor().lightGrean)))),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                child: TextButton(
+                  onPressed: () async {
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateCagnotte()));
+
+                    isCreate = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ConfirmationJoin(
+                                    "Nos equipes vous contacterons prochainement pour valider la creation de votre cagnote")));
+                    setState(() {});
+                  },
+                  child: Text(
+                    "Creer une cagnotte",
+                    style: TextStyle(
+                        fontSize: 30, color: KaritiColor().darkGrean),
+                  ),
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<
+                          RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: BorderSide(
+                                  color: KaritiColor().lightGrean)))),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
       isCreate
           ? Center(
-              child: Calls("Notifications"),
-            )
+        child: Calls("Notifications"),
+      )
           : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                  child: Text(
-                "Aucunes notification",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30),
-              )),
-            ),
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+            child: Text(
+              "Aucunes notification",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30),
+            )),
+      ),
       isCreate
           ? Center(
-              child: Home("Contacts screen"),
-            )
+        child: Home("Contacts screen"),
+      )
           : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                  child: Text(
-                "Vous n'avez pas reçus  de messages",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30),
-              )),
-            ),
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+            child: Text(
+              "Vous n'avez pas reçus  de messages",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30),
+            )),
+      ),
       ProfilePage(),
     ];
 
@@ -175,7 +218,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        leading: Container(),
+        title: Text("Kariti Finance"),
+        leading: new Container(),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -230,7 +274,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         bottomTitles: SideTitles(
           showTitles: true,
           reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (value) =>
+          const TextStyle(
               color: Color(0xff68737d),
               fontWeight: FontWeight.bold,
               fontSize: 16),
@@ -249,7 +294,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         ),
         leftTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
+          getTextStyles: (value) =>
+          const TextStyle(
             color: Color(0xff67727d),
             fontWeight: FontWeight.bold,
             fontSize: 15,
@@ -297,7 +343,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           belowBarData: BarAreaData(
             show: true,
             colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            gradientColors.map((color) => color.withOpacity(0.3)).toList(),
           ),
         ),
       ],
@@ -310,45 +356,46 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   ];
 }
 
-getCagnote(BuildContext context) {
-  return SingleChildScrollView(
-    child: Column(children: [
-      item(context,"Cagnotte 1",0.75,"10.000€"),
-      item(context,"Cagnotte 2",0.4,"5.000€"),
-      item(context,"Cagnotte 3",0.90,"8.000€"),
-      item(context,"Cagnotte 4",0.1,"7.000€"),
-      item(context,"Cagnotte 5",0,"15.000€"),
-    ]),
-  );
-}
-
 item(BuildContext context, String title, double value, String obj) {
-  return SizedBox(
-    height: 150,
-    child: Card(
-      shadowColor: KaritiColor().yellow,
-      child: Column(
-        children: [
-          Flexible(child: Text(title,textAlign: TextAlign.center,style: TextStyle(fontSize: 30),)),
-          Flexible(child: Text("Objectif : $obj")),
-          Flexible(
-            child: Row(
-              children: [
-                Flexible(
-                    flex: 4,
-                    child: LinearProgressIndicator(
-                      value: value,
-                    )),
-                Flexible(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("${value*100}%"),
-                    ))
-              ],
-            ),
-          )
-        ],
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => cagnotteView()));
+    },
+    child: SizedBox(
+      height: 150,
+      child: Card(
+        shadowColor: KaritiColor().yellow,
+        child: Column(
+          children: [
+            Flexible(
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 30),
+                )),
+            Flexible(child: Text("Objectif : $obj")),
+            Flexible(
+              child: Row(
+                children: [
+                  Flexible(
+                      flex: 4,
+                      child: LinearProgressIndicator(
+                        value: value,
+                      )),
+                  Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("${value * 100}%"),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );
