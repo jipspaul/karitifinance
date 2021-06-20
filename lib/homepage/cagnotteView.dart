@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../kariti_color.dart';
 
-enum state { selectBudget, selectTime, finish }
 
 class cagnotteView extends StatefulWidget {
   @override
@@ -27,11 +26,15 @@ class _cagnotteViewState extends State<cagnotteView> {
     );
   }
 
-  state _state = state.selectBudget;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          title: Text("Kariti Finance"),
+          leading: new Container(),
+        ),
         body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
